@@ -1,0 +1,6 @@
+%br
+%strong Current bid: #{@product.auction.current_bid}
+= form_for [@product, @product.auction, Bid.new], html: {class: 'form-inline'} do |f|
+  .form-group
+    =f.text_field :value, class: 'form-control'
+  =f.button 'Create Bid', class: 'btn btn-default'
