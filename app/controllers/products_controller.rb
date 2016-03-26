@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
+    @product = current_user.products.new(product_params)
     @product.save
     respond_with(@product)
   end
@@ -42,6 +42,6 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :image)
+      params.require(:product).permit(:name, :image, :user_id)
     end
 end
