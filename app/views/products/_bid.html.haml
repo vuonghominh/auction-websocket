@@ -1,6 +1,21 @@
-%br
-%strong Current bid: #{@product.auction.current_bid}
-= form_for [@product, @product.auction, Bid.new], html: {class: 'form-inline'} do |f|
-  .form-group
-    =f.text_field :value, class: 'form-control'
-  =f.button 'Create Bid', class: 'btn btn-default'
+-if @product.has_auction?
+  %br
+  -if @product.auction.ended?
+    =render "auctions/status"
+    %br
+  %p
+    %strong
+      -if @product.auction.top_bid.present?
+        -if @product.auction.top_bid.user_id == current_user.id
+          Current bid:
+        -else
+          You were outbid:
+      -else
+        Current bid:
+
+      =@product.auction.current_bid
+  = form_for [@product, @product.auction, Bid.new], html: {class: 'form-inline'} do |f|
+    %p Ends at: #{l(@product.auction.ends_at, format: :short)}
+    .form-group
+      =f.text_field :value, class: 'form-control'
+    =f.button 'Create Bid', class: 'btn btn-default'

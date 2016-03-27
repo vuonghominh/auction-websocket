@@ -3,4 +3,6 @@
   =form_for [@product, Auction.new], html: {class: 'form-inline'} do |f|
     .form-group
       =f.text_field :value, class: 'form-control'
+    .form-group
+      =f.datetime_select :ends_at
     =f.button 'Create Auction', class: 'btn btn-default'

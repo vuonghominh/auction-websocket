@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160326164120) do
+ActiveRecord::Schema.define(version: 20160327053203) do
 
   create_table "auctions", force: true do |t|
     t.float    "value"
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "ends_at"
   end
 
   add_index "auctions", ["product_id"], name: "index_auctions_on_product_id"
