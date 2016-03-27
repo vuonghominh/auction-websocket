@@ -3,30 +3,31 @@
   -if @product.auction.ended?
     =render "auctions/status"
     %br
-  = form_for [@product, @product.auction, Bid.new], html: {class: 'form-inline'} do |f|
-    %p.message
-      %strong
-        -if @product.auction.top_bid.present?
-          -if @product.auction.top_bid.user_id == current_user.id
-            Current bid:
+  -else
+    = form_for [@product, @product.auction, Bid.new], html: {class: 'form-inline'} do |f|
+      %p.message
+        %strong
+          -if @product.auction.top_bid.present?
+            -if @product.auction.top_bid.user_id == current_user.id
+              Current bid:
+            -else
+              You were outbid:
           -else
-            You were outbid:
-        -else
-          Current bid:
+            Current bid:
 
-        =@product.auction.current_bid
-    %p Ends at: #{l(@product.auction.ends_at, format: :short)}
-    .form-group
-      =f.text_field :value, class: 'form-control'
-    =f.button 'Create Bid', class: 'btn btn-default'
+          =@product.auction.current_bid
+      %p Ends at: #{l(@product.auction.ends_at, format: :short)}
+      .form-group
+        =f.text_field :value, class: 'form-control'
+      =f.button 'Create Bid', class: 'btn btn-default'
 
-  :javascript
-    $(function(){
-      var user_id = #{current_user.id};
-      var auction_id = #{@product.auction.id};
-      var form = $("#new_bid");
+    :javascript
+      $(function(){
+        var user_id = #{current_user.id};
+        var auction_id = #{@product.auction.id};
+        var form = $("#new_bid");
 
-      var auctionSocket = new AuctionSocket(
-        user_id, auction_id, form
-      );
-    })
+        var auctionSocket = new AuctionSocket(
+          user_id, auction_id, form
+        );
+      })

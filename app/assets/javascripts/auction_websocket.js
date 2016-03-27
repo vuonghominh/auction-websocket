@@ -67,7 +67,7 @@ AuctionSocket.prototype.outbid = function(value){
 }
 
 AuctionSocket.prototype.won = function(){
-  this.form.fidn(".message strong").html(
+  this.form.find(".message strong").html(
     "You won! " + this.value
   );
 }
